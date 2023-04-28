@@ -1,8 +1,6 @@
 # kernel dev workflow automation and tools
 
-the goal of this repo is to simplify and somewhat automate the setup for a kernel development workflow using buildroot to build a kernel image and a minimal root filesystem to use for testing, as well as setting up the directory structure for a buildroot external tree.
-
-the goal is for the output of each of the scripts to be self-contained such that it can be moved out of the repo and continue to build.
+this repo contains a set of scripts i've created to simplify and somewhat automate the setup for a kernel module development workflow and for building kernel images in general using buildroot.
 
 ## repo structure
 
@@ -37,7 +35,7 @@ at a high level, the workflow for kernel module development includes:
 * set up a buildroot build using the external tree and prepare for build: create the defconfig, enable the kernel module package, 
 * run the buildroot build to create the kernel image, rootfs, and kernel module
 
-a script has been created to automate the creation of most of the necessary files. it does not currently handle any of the buildroot setup itself, only the set up of the external tree structure.
+a script has been created to automate the creation of most of the necessary files, including downloading the desired buildroot version into the project directory to be used for the build.
 
 Example:
 
