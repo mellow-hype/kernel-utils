@@ -65,7 +65,9 @@ sed -i "s/PKGNAME/${NAME^^}/g" $PACKDIR/Config.in
 
 # copy in the build script (just runs make in the build dir, assumes everything else has been set)
 cp template/build.sh $NAME/.
+cp template/qemu-run.sh $NAME/.
 chmod +x $NAME/build.sh
+chmod +x $NAME/qemu-run.sh
 
 # copy config fragments and the buildroot tree into the project dir
 cp configs/*FRAG $NAME/.

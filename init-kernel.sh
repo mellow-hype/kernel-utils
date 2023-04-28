@@ -32,13 +32,15 @@ fi
 
 mkdir -p ./builds
 ODIR=./builds/$NAME
-mkdir -p $ODIR
+mkdir -p $ODIR/build
 cp configs/*FRAG $ODIR/.
 cp -a $BUILDROOT_PATH $ODIR/.
+cp template/build.sh $ODIR/.
+cp template/qemu-run.sh $ODIR/.
 
 cd $ODIR/$BUILDROOT_NAME
-make O=../ "$BREXT" qemu_x86_64_defconfig
+make O=../build "$BREXT" qemu_x86_64_defconfig
 
-cd ../
-cat defconfig-FRAG >> .config
+cd ../build
+cat ../defconfig-FRAG >> .config
 make olddefconfig
