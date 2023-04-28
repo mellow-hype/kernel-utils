@@ -1,0 +1,5 @@
+config BR2_PACKAGE_PKGNAME
+	bool "pkgname"
+	depends on BR2_LINUX_KERNEL
+	help
+		help info for the new kernel module
