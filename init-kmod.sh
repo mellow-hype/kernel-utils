@@ -38,7 +38,7 @@ mkdir -p $SRCMOD
 
 # copy over a modified version of the template makefile and hello_world module
 sed "s/hello\.c/$NAME.c/g" template/kmod.Makefile > $SRCMOD/Makefile
-cp template/hello_world/hello.c $SRCMOD/$NAME.c
+cp template/hello_kmod/hello.c $SRCMOD/$NAME.c
 
 # copy over the template ext-tree directory
 cp -a template/ext-tree $NAME/.
