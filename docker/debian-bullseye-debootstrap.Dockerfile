@@ -1,21 +1,13 @@
-FROM i386/ubuntu:16.04
+# NOTE: Run with --privileged (required for chroot in the container)
+FROM debian:bullseye
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    debootstrap \
+    openssh-client \
     build-essential \
-    bzip2 \
-    git-core \
-    gzip \
-    liblzma-dev \
-    liblzo2-dev \
-    liblzo2-dev \
-    ocaml-nox gawk \
-    lzop \
-    python-lzo \
-    squashfs-tools \
-    srecord \
     tar \
     unzip \
     perl \
@@ -23,17 +15,33 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bison \
     flex \
     fakeroot \
-	ccache ecj fastjar \
-    gettext git java-propose-classpath libelf-dev libncurses5-dev \
-    libncursesw5-dev libssl-dev python python2.7-dev \
-    rsync subversion \
-    gcc-multilib \
+    bzip2 \
+    cmake \
+    git-core \
+    gzip \
+    lzop \
+    gawk \
+    ccache \
+    ninja-build \
+    meson \
+    ecj \
+    gettext \
     pkg-config \
     wget \
     sudo \
     cpio \
     bc \
     vim \
+    python2.7-dev \
+    python3 \
+    python3-lzo \
+    python3-pip \
+    python3-setuptools \
+    python3-dev \
+    liblzma-dev \
+    liblzo2-dev \
+    libelf-dev \
+    libssl-dev \
     zlib1g-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -44,9 +52,9 @@ RUN useradd -m builder &&\
 USER builder
 
 # this is where images produced by buildroot will be copied for export to the host
-VOLUME [ "/home/builder/images" ]
-
-# download buildroot and copy the orbi-qemu-vexpress-a7 tree
-WORKDIR /home/builder
+VOLUME [ "/home/builder/src" ]
+WORKDIR /home/builder/src
 
 ENTRYPOINT [ "/bin/bash" ]
+
+
