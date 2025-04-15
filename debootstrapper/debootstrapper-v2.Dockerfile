@@ -48,11 +48,9 @@ RUN useradd -m builder &&\
     echo 'builder ALL=NOPASSWD: ALL' > /etc/sudoers.d/builder
 USER builder
 
-COPY ./create-image-debian-v2.sh /opt/create-image.sh
+COPY ./create-image-debian.sh /opt/create-image.sh
+WORKDIR /home/builder/out
 
 VOLUME [ "/home/builder/out" ]
-WORKDIR /home/builder
-RUN mkdir -p out
-
-ENTRYPOINT [ "/home/builder/out/create-image.sh" ]
+ENTRYPOINT [ "/opt/create-image.sh" ]
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TAG="debian-boostrapper"
+TAG="debian-bootstrapper"
 
 mkdir -p ./.dockerctx
-docker build -t "${TAG}" -f debian-bullseye-debootstrap.Dockerfile .dockerctx/.
+docker build -t "${TAG}" -f debootstrapper-v2.Dockerfile .

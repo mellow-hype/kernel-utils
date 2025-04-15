@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Copyright 2016 syzkaller project authors. All rights reserved.
 # Use of this source code is governed by Apache 2 LICENSE that can be found in the LICENSE file.
-
 # create-image.sh creates a minimal Debian Linux image suitable for syzkaller.
 
 set -eux
@@ -29,8 +28,8 @@ display_help() {
 
 while true; do
     if [ $# -eq 0 ];then
-	echo $#
-	break
+    echo $#
+    break
     fi
     case "$1" in
         -h | --help)
@@ -38,19 +37,19 @@ while true; do
             exit 0
             ;;
         -a | --arch)
-	    ARCH=$2
+        ARCH=$2
             shift 2
             ;;
         -d | --distribution)
-	    RELEASE=$2
+        RELEASE=$2
             shift 2
             ;;
         -s | --seek)
-	    SEEK=$(($2 - 1))
+        SEEK=$(($2 - 1))
             shift 2
             ;;
         -p | --add-perf)
-	    PERF=true
+        PERF=true
             shift 1
             ;;
         -*)
