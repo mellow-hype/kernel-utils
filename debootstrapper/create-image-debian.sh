@@ -3,34 +3,33 @@
 # Use of this source code is governed by Apache 2 LICENSE that can be found in the LICENSE file.
 # create-image.sh creates a minimal Debian Linux image suitable for syzkaller.
 
-set -eux
+set -eu
 
 # Create a minimal Debian distribution in a directory.
 PREINSTALL_PKGS=openssh-server,curl,tar,gcc,libc6-dev,time,strace,sudo,less,psmisc,debian-ports-archive-keyring,debian-archive-keyring,tmux,vim,git,make
 
 # Variables affected by options
 ARCH=$(uname -m)
-RELEASE=bullseye
-SEEK=2047
-PERF=false
+SEEK=4096
 
 # Display help function
 display_help() {
-    echo "Usage: $0 [option...] " >&2
+    echo "Usage: $0 [option...] <dist>" >&2
     echo
     echo "   -a, --arch                 Set architecture"
-    echo "   -d, --distribution         Set on which debian distribution to create"
-    echo "   -s, --seek                 Image size (MB), default 2048 (2G)"
+    echo "   -d, --distribution         Debian distribution for image"
+    echo "   -s, --seek                 Image size (MB), default $SEEK"
     echo "   -h, --help                 Display help message"
-    echo "   -p, --add-perf             Add perf support with this option enabled. Please set envrionment variable \$KERNEL at first"
     echo
 }
 
 while true; do
     if [ $# -eq 0 ];then
-    echo $#
-    break
+        echo "error: must provide a distribution to use"
+        display_help
+        exit 1
     fi
+    RELEASE="$1"
     case "$1" in
         -h | --help)
             display_help
@@ -48,10 +47,6 @@ while true; do
         SEEK=$(($2 - 1))
             shift 2
             ;;
-        -p | --add-perf)
-        PERF=true
-            shift 1
-            ;;
         -*)
             echo "Error: Unknown option: $1" >&2
             exit 1
@@ -61,6 +56,8 @@ while true; do
             ;;
     esac
 done
+
+set -eux
 
 # Handle cases where qemu and Debian use different arch names
 case "$ARCH" in
@@ -104,11 +101,6 @@ if [ $FOREIGN = "true" ]; then
     fi
 fi
 
-# Double check KERNEL when PERF is enabled
-if [ $PERF = "true" ] && [ -z ${KERNEL+x} ]; then
-    echo "Please set KERNEL environment variable when PERF is enabled"
-    exit 1
-fi
 
 # If full feature is chosen, install more packages
 DIR=$RELEASE
@@ -156,19 +148,6 @@ ssh-keygen -f $RELEASE.id_rsa -t rsa -N ''
 sudo mkdir -p $DIR/root/.ssh/
 cat $RELEASE.id_rsa.pub | sudo tee $DIR/root/.ssh/authorized_keys
 
-# Add perf support
-if [ $PERF = "true" ]; then
-    cp -r $KERNEL $DIR/tmp/
-    BASENAME=$(basename $KERNEL)
-    sudo chroot $DIR /bin/bash -c "apt-get update; apt-get install -y flex bison python-dev libelf-dev libunwind8-dev libaudit-dev libslang2-dev libperl-dev binutils-dev liblzma-dev libnuma-dev"
-    sudo chroot $DIR /bin/bash -c "cd /tmp/$BASENAME/tools/perf/; make"
-    sudo chroot $DIR /bin/bash -c "cp /tmp/$BASENAME/tools/perf/perf /usr/bin/"
-    rm -r $DIR/tmp/$BASENAME
-fi
-
-# Add udev rules for custom drivers.
-# Create a /dev/vim2m symlink for the device managed by the vim2m driver
-echo 'ATTR{name}=="vim2m", SYMLINK+="vim2m"' | sudo tee -a $DIR/etc/udev/rules.d/50-udev-default.rules
 
 # Build a disk image
 dd if=/dev/zero of=$RELEASE.img bs=1M seek=$SEEK count=1

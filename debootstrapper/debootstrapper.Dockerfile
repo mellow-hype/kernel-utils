@@ -1,5 +1,6 @@
 # NOTE: Run with --privileged (required for chroot in the container)
-FROM debian:bullseye
+
+FROM debian:bullseye-slim
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
@@ -7,35 +8,22 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get install -y --no-install-recommends \
     debootstrap \
     openssh-client \
-    build-essential \
     tar \
     unzip \
-    perl \
     rsync \
-    bison \
-    flex \
     fakeroot \
     bzip2 \
-    cmake \
     git-core \
     gzip \
     lzop \
     gawk \
-    ccache \
-    ninja-build \
-    meson \
-    ecj \
     gettext \
-    pkg-config \
     wget \
+    curl \
     sudo \
     cpio \
     bc \
-    vim \
     python3 \
-    python3-dev \
-    liblzma-dev \
-    liblzo2-dev \
     libelf-dev \
     libssl-dev \
     zlib1g-dev && \
