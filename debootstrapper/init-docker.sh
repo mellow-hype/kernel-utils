@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
+SRCDIR="./src"
 TAG="debian-bootstrapper"
-DFILE="debootstrapper.Dockerfile"
+DFILE="src/debootstrapper.Dockerfile"
 
 echo "[*] building docker image"
-docker build -t "${TAG}" -f "${DFILE}" .
+docker build -t "${TAG}" -f "${DFILE}" "${SRCDIR}"
 
 echo "[*] creating symlinks to util scripts in ~/.local/bin"
 mkdir -p $HOME/.local/bin
