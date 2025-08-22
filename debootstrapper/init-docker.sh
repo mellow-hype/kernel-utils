@@ -6,10 +6,10 @@ DFILE="$SRCDIR/debootstrapper.Dockerfile"
 DFILE_CROSS="$SRCDIR/debootstrapper-cross.Dockerfile"
 
 echo "[*] building docker image for standard version"
-docker build -t "${TAG}" -f "${DFILE}" "${SRCDIR}"
+sudo docker build -t "${TAG}" -f "${DFILE}" "${SRCDIR}"
 
 echo "[*] building docker image for cross-compile version"
-docker build -t "${TAG_CROSS}" -f "${DFILE_CROSS}" "${SRCDIR}"
+sudo docker build -t "${TAG_CROSS}" -f "${DFILE_CROSS}" "${SRCDIR}"
 
 echo "[*] creating symlinks to util scripts in ~/.local/bin"
 mkdir -p $HOME/.local/bin
