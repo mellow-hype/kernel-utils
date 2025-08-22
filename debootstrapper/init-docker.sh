@@ -17,5 +17,6 @@ sudo docker build -t "${TAG}-aarch64" --platform linux/aarch64 -f "${DFILE_CROSS
 echo "[*] creating symlinks to util scripts in ~/.local/bin"
 mkdir -p $HOME/.local/bin
 test -f $HOME/.local/bin/debootstrap-dock || ln -s $PWD/util/debootstrapper-dock.sh $HOME/.local/bin/debootstrap-dock
-test -f $HOME/.local/bin/debootstrap-cross-dock || ln -s $PWD/util/debootstrapper-cross-dock.sh $HOME/.local/bin/debootstrap-cross-dock
+test -f $HOME/.local/bin/debootstrap-cross-armhf || ln -s $PWD/util/debootstrapper-cross-armhf.sh $HOME/.local/bin/debootstrap-cross-armhf
+test -f $HOME/.local/bin/debootstrap-cross-aarch64 || ln -s $PWD/util/debootstrapper-cross-aarch64.sh $HOME/.local/bin/debootstrap-cross-aarch64
 test -f $HOME/.local/bin/debootstrap-rebuild-img || ln -s $PWD/util/rebuild-img.sh $HOME/.local/bin/debootstrap-rebuild-img
