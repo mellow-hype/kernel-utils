@@ -67,8 +67,8 @@ case "$ARCH" in
     aarch64)
         DEBARCH=arm64
         ;;
-    arm)
-        DEBARCH=armel
+    arm|armv7l|armhf)
+        DEBARCH=armhf
         ;;
     x86_64)
         DEBARCH=amd64

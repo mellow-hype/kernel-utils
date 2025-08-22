@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 SRCDIR="./src"
 TAG="debian-bootstrapper"
-TAG_CROSS="debian-bootstrapper-cross"
 DFILE="$SRCDIR/debootstrapper.Dockerfile"
-DFILE_CROSS="$SRCDIR/debootstrapper-cross.Dockerfile"
+DFILE_CROSS_ARM32="$SRCDIR/debootstrapper-cross-armhf.Dockerfile"
+DFILE_CROSS_ARM64="$SRCDIR/debootstrapper-cross-aarch64.Dockerfile"
 
 echo "[*] building docker image for standard version"
 sudo docker build -t "${TAG}" -f "${DFILE}" "${SRCDIR}"
 
-echo "[*] building docker image for cross-compile version"
-sudo docker build -t "${TAG_CROSS}" -f "${DFILE_CROSS}" "${SRCDIR}"
+echo "[*] building docker image for cross-compile version: armhf"
+sudo docker build -t "${TAG}-armhf" --platform linux/arm -f "${DFILE_CROSS_ARM32}" "${SRCDIR}"
+
+echo "[*] building docker image for cross-compile version: aarch64"
+sudo docker build -t "${TAG}-aarch64" --platform linux/aarch64 -f "${DFILE_CROSS_ARM64}" "${SRCDIR}"
 
 echo "[*] creating symlinks to util scripts in ~/.local/bin"
 mkdir -p $HOME/.local/bin
