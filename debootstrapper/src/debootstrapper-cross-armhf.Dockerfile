@@ -8,6 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update && apt-get install -y --no-install-recommends \
     debootstrap \
     qemu-user-static \
+    qemu-system-arm \
     binfmt-support \
     openssh-client \
     tar \
