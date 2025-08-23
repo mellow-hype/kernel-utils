@@ -7,8 +7,8 @@ if [ "${DOCKERPATH}" = "" ]; then
     exit 1
 fi
 
-for dfile in *.Dockerfile
+for dfile in ubuntu_*.Dockerfile
 do
-    tag=$(echo $dfile | cut -d "." -f 1)
+    tag=$(echo $dfile | cut -d "." -f 1,2 | tr '.' '_')
     sudo docker build -t ${tag} -f $dfile .
 done

@@ -17,7 +17,6 @@ if [ -f "scripts/config" ]; then
         -d WERROR \
         -e DEBUG_INFO \
         -e BLOCK \
-        -e XFS_FS \
         -e EXT4_FS \
         -e EXT2_FS \
         -d DEBUG_INFO_REDUCED \
