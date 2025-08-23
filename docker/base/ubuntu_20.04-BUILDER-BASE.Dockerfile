@@ -1,47 +1,56 @@
-# NOTE: Run with --privileged (required for chroot in the container)
-FROM debian:bullseye
+FROM ubuntu:20.04
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    debootstrap \
-    openssh-client \
     build-essential \
-    tar \
-    unzip \
-    perl \
-    rsync \
+    automake \
+    ocaml-nox \
     bison \
     flex \
     fakeroot \
-    bzip2 \
-    cmake \
-    git-core \
-    gzip \
-    lzop \
-    gawk \
     ccache \
-    ninja-build \
-    meson \
     ecj \
     gettext \
-    pkg-config \
-    wget \
-    sudo \
-    cpio \
-    bc \
-    vim \
+    bzip2 \
+    gzip \
+    unzip \
+    unrar \
+    git-core \
+    gawk \
+    curl \
+    lzop \
+    python \
     python2.7-dev \
     python3 \
     python3-lzo \
     python3-pip \
     python3-setuptools \
     python3-dev \
+    squashfs-tools \
+    srecord \
+    tar \
+    perl \
+    rsync \
+    git \
+    java-propose-classpath \
     liblzma-dev \
     liblzo2-dev \
     libelf-dev \
+    libncurses-dev \
     libssl-dev \
+    rsync \
+    subversion \
+    swig \
+    xsltproc \
+    pkg-config \
+    wget \
+    sudo \
+    tmux \
+    cpio \
+    bc \
+    vim \
     zlib1g-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -51,10 +60,9 @@ RUN useradd -m builder &&\
     echo 'builder ALL=NOPASSWD: ALL' > /etc/sudoers.d/builder
 USER builder
 
-# this is where images produced by buildroot will be copied for export to the host
+VOLUME [ "/home/builder/images" ]
 VOLUME [ "/home/builder/src" ]
-WORKDIR /home/builder/src
+
+WORKDIR /home/builder
 
 ENTRYPOINT [ "/bin/bash" ]
-
-

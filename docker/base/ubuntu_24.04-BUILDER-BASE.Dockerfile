@@ -1,49 +1,51 @@
-FROM ubuntu:bionic
+FROM ubuntu:24.04
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    gcc-arm-linux-gnueabihf \
-    bzip2 \
-    git-core \
-    gzip \
-    liblzma-dev \
-    liblzo2-dev \
+    automake \
     ocaml-nox \
-    gawk \
-    lzop \
-    python3 \
-    python3-dev \
-    python3-setuptools \
-    python3-pip \
-    python \
-    python2.7-dev \
-    python-lzo \
-    squashfs-tools \
-    srecord \
-    tar \
-    unzip \
-    perl \
-    rsync \
     bison \
     flex \
     fakeroot \
     ccache \
     ecj \
-    fastjar \
     gettext \
+    bzip2 \
+    gzip \
+    unzip \
+    unrar \
+    git-core \
+    gawk \
+    curl \
+    lzop \
+    python3 \
+    python3-lzo \
+    python3-pip \
+    python3-setuptools \
+    python3-dev \
+    squashfs-tools \
+    srecord \
+    tar \
+    perl \
+    rsync \
     git \
     java-propose-classpath \
+    liblzma-dev \
+    liblzo2-dev \
     libelf-dev \
-    libncurses5-dev \
-    libncursesw5-dev \
+    libncurses-dev \
     libssl-dev \
+    rsync \
     subversion \
+    swig \
+    xsltproc \
     pkg-config \
     wget \
     sudo \
+    tmux \
     cpio \
     bc \
     vim \
@@ -56,10 +58,9 @@ RUN useradd -m builder &&\
     echo 'builder ALL=NOPASSWD: ALL' > /etc/sudoers.d/builder
 USER builder
 
-# this is where images produced by buildroot will be copied for export to the host
 VOLUME [ "/home/builder/images" ]
+VOLUME [ "/home/builder/src" ]
 
-# download buildroot and copy the orbi-qemu-vexpress-a7 tree
 WORKDIR /home/builder
 
 ENTRYPOINT [ "/bin/bash" ]

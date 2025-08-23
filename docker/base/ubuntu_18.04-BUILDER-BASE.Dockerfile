@@ -1,40 +1,52 @@
-FROM ubuntu:focal
+FROM ubuntu:18.04
 ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    bzip2 \
+    automake \
+    ocaml-nox \
+    bison \
+    flex \
+    fakeroot \
+    ccache \
+    ecj \
+    gettext \
     git-core \
+    bzip2 \
     gzip \
-    liblzma-dev \
-    liblzo2-dev \
-    liblzo2-dev \
-    ocaml-nox gawk \
+    gawk \
     lzop \
+    python \
+    python2.7-dev \
     python3 \
-    python3-lzo \
+    python-lzo \
     python3-pip \
+    python3-setuptools \
+    python3-dev \
     squashfs-tools \
     srecord \
     tar \
     unzip \
     perl \
     rsync \
-    bison \
-    flex \
-    fakeroot \
-	ccache ecj fastjar \
-    gettext git java-propose-classpath libelf-dev libncurses5-dev \
-    libncursesw5-dev libssl-dev python python2.7-dev \
-    python3-setuptools python3-dev rsync subversion \
+    git \
+    java-propose-classpath \
+    rsync \
+    subversion \
     pkg-config \
     wget \
     sudo \
+    tmux \
     cpio \
     bc \
     vim \
+    libelf-dev \
+    libncurses-dev \
+    libssl-dev \
+    liblzma-dev \
+    liblzo2-dev \
     zlib1g-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -44,7 +56,9 @@ RUN useradd -m builder &&\
     echo 'builder ALL=NOPASSWD: ALL' > /etc/sudoers.d/builder
 USER builder
 
-# this is where images produced by buildroot will be copied for export to the host
+VOLUME [ "/home/builder/images" ]
 VOLUME [ "/home/builder/src" ]
+
+WORKDIR /home/builder
 
 ENTRYPOINT [ "/bin/bash" ]
