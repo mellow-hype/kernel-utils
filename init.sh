@@ -10,16 +10,4 @@ for script in "$SCRIPT_DIR"/build-utils/*; do
 done
 echo "Symlinks to scripts installed in $BIN_DIR"
 
-# Check if Docker is available
-if ! command -v docker &> /dev/null; then
-    echo "Docker could not be found. Please install Docker to use the Docker build features."
-    exit 1
-fi
-
-# Setup the debootstrapper Docker images
-cd "$SCRIPT_DIR/debootstrapper"
-echo "Building debootstrapper Docker image..."
-./init.sh
-cd "$SCRIPT_DIR"
-
 echo "Initialization complete."
