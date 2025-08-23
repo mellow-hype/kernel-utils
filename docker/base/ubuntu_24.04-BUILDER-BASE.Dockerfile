@@ -1,5 +1,6 @@
 FROM ubuntu:24.04
 ENV TZ=America/Los_Angeles
+ENV TERM=xterm-256color
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install dependencies
