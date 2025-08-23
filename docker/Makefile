@@ -26,8 +26,8 @@ arm64_builders: $(BASES)
 	sudo docker build -t ubuntu20-kbuild-arm64 -f ubuntu20-arm64-builder.Dockerfile .
 
 arm_builders: $(BASES)
-	sudo docker build -t ubuntu18-kbuild-arm -f ubuntu18-arm-builder.Dockerfile .
-	sudo docker build -t ubuntu20-kbuild-arm -f ubuntu20-arm-builder.Dockerfile .
+	sudo docker build -t ubuntu18-kbuild-armhf -f ubuntu18-armhf-builder.Dockerfile .
+	sudo docker build -t ubuntu20-kbuild-armhf -f ubuntu20-armhf-builder.Dockerfile .
 
 cross_builders: arm64_builders arm_builders
 
