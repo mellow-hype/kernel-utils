@@ -17,30 +17,13 @@ if [ -f "scripts/config" ]; then
     ./"$CONFIG_SCRIPT" \
         -e DEBUG_INFO \
         -d DEBUG_INFO_REDUCED \
-        -e DEBUG_KERNEL \
-        -e DEBUG_MISC \
-        -e DEBUG_FS \
-        -e KALLSYMS \
-        -e KALLSYMS_ALL \
-        -e KASAN \
-        -e KASAN_INLINE \
+        -d DEBUG_INFO_SPLIT \
+        -d DEBUG_INFO_REDUCED \
+        -d DEBUG_INFO_DWARF4 \
         -e ARCH_HAS_KCOV \
         -e KCOV \
         -e KCOV_INSTRUMENT_ALL \
         -e KCOV_ENABLE_COMPARISONS \
         --set-val KCOV_IRQ_AREA_SIZE 0x40000 \
-        -e STACKTRACE_SUPPORT \
-        -e BLOCK \
-        -e STACKPROTECTOR \
-        -e HARDENED_USERCOPY \
-        -e HARDENED_USERCOPY_FALLBACK \
-        -d RANDOMIZE_BASE \
-        -e SLAB \
-        -e DEBUG_SLAB \
-        -d SLAB_FREELIST_RANDOM \
-        -d SLAB_FREELIST_HARDENED \
-        -e USERFAULTFD \
-        -e NET \
-        -e EARLY_PRINTK \
-        -e MAGIC_SYSRQ
+        -e STACKTRACE_SUPPORT
 fi
