@@ -16,16 +16,20 @@ if [ -f "scripts/config" ]; then
     ./"$CONFIG_SCRIPT" \
         -d WERROR \
         -e DEBUG_INFO \
+        -d DEBUG_INFO_SPLIT \
+        -d DEBUG_INFO_REDUCED \
+        -d DEBUG_INFO_DWARF4 \
+        -e DEBUG_KERNEL \
+        -e GDB_SCRIPTS \
         -e BLOCK \
         -e EXT4_FS \
+        -e EXT4_FS_POSIX_ACL \
         -e EXT2_FS \
-        -d DEBUG_INFO_REDUCED \
-        -e DEBUG_KERNEL \
-        -e DEBUG_FS \
+        -e EXT2_FS_XATTR \
+        -e EXT2_FS_SECURITY \
+        -e EXT2_FS_POSIX_ACL \
         -e KALLSYMS \
         -e KALLSYMS_ALL \
-        -e KGDB \
-        -e KGDB_KDB \
         -e HARDENED_USERCOPY \
         -e HARDENED_USERCOPY_FALLBACK \
         -e RANDOMIZE_BASE \

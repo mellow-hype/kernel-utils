@@ -20,15 +20,16 @@ if [ -f "scripts/config" ]; then
         -d WERROR \
         -e DEBUG_INFO \
         -d DEBUG_INFO_REDUCED \
+        -d DEBUG_INFO_SPLIT \
+        -d DEBUG_INFO_REDUCED \
+        -d DEBUG_INFO_DWARF4 \
         -e DEBUG_KERNEL \
+        -e GDB_SCRIPTS \
         -e DEBUG_FS \
         -e KALLSYMS \
         -e KALLSYMS_ALL \
-        -e KGDB \
-        -e KGDB_KDB \
         -e HARDENED_USERCOPY \
         -e HARDENED_USERCOPY_FALLBACK \
-        -e RANDOMIZE_BASE \
         -e MAGIC_SYSRQ \
         -e EARLY_PRINTK
 fi
