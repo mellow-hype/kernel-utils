@@ -17,7 +17,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bzip2 \
     gzip \
     unzip \
-    unrar \
     git-core \
     gawk \
     curl \

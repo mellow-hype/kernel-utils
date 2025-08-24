@@ -11,3 +11,6 @@ install_build_utils:
 init_debootstrap:
 	make -C debootstrapper init_docker
 	make -C debootstrapper install
+
+init_docker_kbuilders:
+	make -C docker all

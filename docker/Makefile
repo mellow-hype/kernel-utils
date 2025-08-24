@@ -42,8 +42,15 @@ arm_builders: $(BASES)
 
 cross_builders: arm64_builders arm_builders
 
-generic_builders: $(BASES)
+ubuntu_builders_generic: $(BASES)
 	sudo docker build -t ubuntu18-kbuild-generic -f ubuntu18-generic-builder.Dockerfile .
 	sudo docker build -t ubuntu20-kbuild-generic -f ubuntu20-generic-builder.Dockerfile .
 	sudo docker build -t ubuntu22-kbuild-generic -f ubuntu22-generic-builder.Dockerfile .
 	sudo docker build -t ubuntu24-kbuild-generic -f ubuntu24-generic-builder.Dockerfile .
+
+debian_builders_generic: $(BASES)
+	sudo docker build -t debian11-kbuild-generic -f debian11-generic-builder.Dockerfile .
+	sudo docker build -t debian12-kbuild-generic -f debian12-generic-builder.Dockerfile .
+
+generic_builders: debian_builders_generic ubuntu_builders_generic
+    $(info All done building generic kernel builder containers!)

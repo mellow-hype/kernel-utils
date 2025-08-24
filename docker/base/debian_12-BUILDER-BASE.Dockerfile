@@ -17,12 +17,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bzip2 \
     gzip \
     unzip \
-    unrar \
     git-core \
     gawk \
     curl \
     lzop \
-    python2.7-dev \
     python3 \
     python3-lzo \
     python3-pip \
